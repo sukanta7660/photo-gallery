@@ -8,12 +8,22 @@
             <li class="nav-item active">
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
+            @if(isset(Auth::user()->email))
             <li class="nav-item">
-                <a class="nav-link" href="#">Sukanta Purkayastha</a>
+                <a class="nav-link" href="#">{{Auth::user()->name}}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Log Out</a>
+                <a class="nav-link" href="#" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">Log Out</a>
             </li>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
+            @else
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('login')}}">Log In</a>
+            </li>
+            @endif
         </ul>
     </div>
 </nav>

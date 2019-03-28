@@ -16,6 +16,8 @@
 //});
 Route::get('/', 'MainController@index');
 
+Route::post('album/save', 'MainController@save_album');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

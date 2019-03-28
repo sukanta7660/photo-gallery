@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Album;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -29,6 +31,10 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        //
+        Album::creating(function($model)
+        {
+            $userid = (!Auth::guest()) ? Auth::user()->id : null ;
+            $model->userID = $userid;
+        });
     }
 }
