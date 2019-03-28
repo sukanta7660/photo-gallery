@@ -1,0 +1,7 @@
+.gallery a img {
+    max-width: 100%;
+    height: auto;
+}
+.gallery{
+    margin: 10px;
+}
