@@ -18,6 +18,7 @@ Route::get('/', 'MainController@index');
 
 Route::post('album/save', 'MainController@save_album');
 Route::post('gallery/image/save', 'MainController@image_upload');
+Route::get('gallery/image/show/{id}', 'MainController@gallery_page');
 
 Auth::routes();
 

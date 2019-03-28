@@ -10,8 +10,11 @@ class MainController extends Controller
 {
     public function index(){
         $table = Album::orderBy('albumID','DESC')->get();
-        return view('main')->with(['table'=>$table]);
+        $count = Album::count();
+        return view('main')->with(['table'=>$table,'count'=>$count]);
     }
+
+    //for album
 
     public function save_album(Request $request){
 
@@ -39,6 +42,7 @@ class MainController extends Controller
         return redirect()->back()->with('msg','Album Created Successfully');
     }
 
+    //for gallery
     public function image_upload(Request $request){
 
         $validate = $request->validate([
@@ -67,5 +71,13 @@ class MainController extends Controller
 
         }
 
+    }
+
+    // gallery page
+    public function gallery_page($id){
+        $album = Album::find($id);
+        $table = Gallery::orderBy('galleryID','DESC')->where('albumID',$id)->get();
+        $count = Gallery::where('albumID',$id)->count();
+        return view('gallery_page')->with(['table'=>$table,'album'=>$album,'count'=>$count]);
     }
 }

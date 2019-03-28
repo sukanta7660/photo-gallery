@@ -74,7 +74,7 @@ Home
             @foreach($table as $row)
             <div class="col-md-3">
                 <div class="gallery">
-                    <a target="_blank" href="#">
+                    <a href="{{action('MainController@gallery_page',['id'=>$row->albumID])}}">
                         <img src="{{asset('public/uploads/album/'.$row->imageName)}}" alt="Northern Lights" width="600" height="400">
                     </a>
                     <div class="desc text-center">{{$row->title}}</div>
