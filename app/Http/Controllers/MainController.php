@@ -21,7 +21,7 @@ class MainController extends Controller
         $table = new Album();
 
         $validate = $request->validate([
-            'title' => 'required',
+            'title' => 'required | unique:albums,title',
             'imageName' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 

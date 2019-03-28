@@ -14,7 +14,7 @@
         @if( $count > 0 )
         <div class="row mt-5 mb-5">
             @foreach($table as $row)
-                <div class="col-md-3">
+                <div class="col-md-3 pr-0">
                     <div class="gallery">
                         <a href="#">
                             <img src="{{asset('public/uploads/gallery/'.$row->images)}}" alt="Northern Lights" width="600" height="400">

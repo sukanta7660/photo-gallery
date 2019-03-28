@@ -70,7 +70,7 @@ Home
         </div>
         <hr>
         @endif
-        <div class="row mt-5 mb-5">
+        <div class="row mt-3 mb-3">
             @foreach($table as $row)
             <div class="col-md-3">
                 <div class="gallery">

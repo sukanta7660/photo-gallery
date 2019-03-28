@@ -17,6 +17,7 @@ class CreateAlbumsTable extends Migration
             $table->bigIncrements('albumID');
             $table->string('title',200);
             $table->string('imageName',200)->nullable();
+            $table->string('slug')->unique();
             $table->unsignedBigInteger('userID')->index()->nullable();
             $table->foreign('userID')->references('id')->on('users')->onDelete('cascade')->onUpdate('No Action');
             $table->timestamps();
