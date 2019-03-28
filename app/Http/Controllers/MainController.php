@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Album;
+use App\Gallery;
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -35,6 +36,36 @@ class MainController extends Controller
             $request->imageName->move('public/uploads/album',$filename);
         }
         $table->save();
-        return redirect()->back();
+        return redirect()->back()->with('msg','Album Created Successfully');
+    }
+
+    public function image_upload(Request $request){
+
+        $validate = $request->validate([
+            'albumID' => 'required',
+        ]);
+
+        if ($request->hasFile('images')){
+
+            $images_array = $request->file('images');
+            $array_len = count($images_array);
+
+            for ($i=0; $i<$array_len; $i++){
+                $extension = $images_array[$i]->extension();
+                $filename = rand(123456,999999).'.'.$extension;
+                $path = public_path('uploads/gallery');
+                $images_array[$i]->move($path,$filename);
+
+                $table = new Gallery();
+                $table->albumID = $request->albumID;
+                $table->images  = $filename;
+                $table->save();
+
+            }
+
+            return redirect()->back();
+
+        }
+
     }
 }

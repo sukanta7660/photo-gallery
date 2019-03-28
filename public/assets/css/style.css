@@ -1,6 +1,6 @@
 .gallery a img {
     max-width: 100%;
-    height: auto;
+    height: 185px;
 }
 .gallery{
     margin: 10px;

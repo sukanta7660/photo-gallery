@@ -38,7 +38,8 @@ Home
                 </form>
             </div>
             <div class="col-md-6">
-                <form action="#" method="post" enctype="multipart/form-data" class="p-5">
+                <form action="{{action('MainController@image_upload')}}" method="post" enctype="multipart/form-data" class="p-5">
+                    {{csrf_field()}}
                     <h3>Add Images To The Album</h3>
                     <hr>
                     <div class="input-group input-group-sm mb-3">
@@ -52,6 +53,11 @@ Home
                             @endforeach
                         </select>
                     </div>
+                    @if($errors->has('albumID'))
+                        <ul>
+                            <li style="color:red;">{{$errors->first('albumID')}}</li>
+                        </ul>
+                    @endif
                     <div class="input-group input-group-sm mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-sm">Image</span>

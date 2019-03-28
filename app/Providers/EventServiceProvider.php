@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Album;
+use App\Gallery;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
@@ -32,6 +33,12 @@ class EventServiceProvider extends ServiceProvider
         parent::boot();
 
         Album::creating(function($model)
+        {
+            $userid = (!Auth::guest()) ? Auth::user()->id : null ;
+            $model->userID = $userid;
+        });
+
+        Gallery::creating(function($model)
         {
             $userid = (!Auth::guest()) ? Auth::user()->id : null ;
             $model->userID = $userid;
