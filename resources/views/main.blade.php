@@ -8,7 +8,7 @@ Home
         <div class="row">
             <div class="col-md-12 offset-2">
                 <form action="#" class="form-inline p-5">
-                    <label class="mr-sm-2 mb-0" for="title">Title</label>
+                    <label class="mr-sm-2 mb-0" for="title">Album Title</label>
                     <input type="text" class="form-control mr-sm-2 mb-2 mb-sm-0" placeholder="Album title" id="title" name="title">
                     <label class="mr-sm-2 mb-0" for="image">Image</label>
                     <input style="padding: 0px;" multiple type="file" class="form-control mr-sm-2 mb-2 mb-sm-0" id="image" name="images[]">
