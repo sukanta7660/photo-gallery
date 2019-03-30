@@ -16,9 +16,12 @@
 //});
 Route::get('/', 'MainController@index');
 
+Route::get('album/all', 'MainController@allAlbums');
+Route::get('album/search', 'MainController@albumSearch');
+
 Route::post('album/save', 'MainController@save_album');
 Route::post('gallery/image/save', 'MainController@image_upload');
-Route::get('gallery/image/show/{id}', 'MainController@gallery_page');
+Route::get('gallery/image/show', 'MainController@gallery_page');
 
 Auth::routes();
 

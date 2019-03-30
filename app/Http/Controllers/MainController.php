@@ -11,7 +11,7 @@ class MainController extends Controller
     public function index(){
         $table = Album::orderBy('albumID','DESC')->get();
         $count = Album::count();
-        return view('main')->with(['table'=>$table,'count'=>$count]);
+        return view('main')->with(['count'=>$count, 'table'=>$table]);
     }
 
     //for album
@@ -40,6 +40,36 @@ class MainController extends Controller
         }
         $table->save();
         return redirect()->back()->with('msg','Album Created Successfully');
+    }
+
+    // ajax show
+    public function allAlbums(){
+        $table = Album::orderBy('title', 'ASC')->get();
+        $data=[];
+        foreach ($table as $row){
+            $rowData['albumID'] = $row->albumID;
+            $rowData['title'] = $row->title;
+            $rowData['imageName'] = $row->imageName;
+            $rowData['created_at'] = $row->created_at->format('F j, Y');
+            $data[] = $rowData;
+        }
+
+        return response()->json($data);
+    }
+
+    //search
+    public function albumSearch(Request $request){
+        $search = $request->search;
+        $table = Album::orderBy('title', 'ASC')->search($search)->get();
+        $data=[];
+        foreach ($table as $row){
+            $rowData['albumID'] = $row->albumID;
+            $rowData['title'] = $row->title;
+            $rowData['imageName'] = $row->imageName;
+            $rowData['created_at'] = $row->created_at->format('F j, Y');
+            $data[] = $rowData;
+        }
+        return response()->json($data);
     }
 
     //for gallery
@@ -74,10 +104,10 @@ class MainController extends Controller
     }
 
     // gallery page
-    public function gallery_page($id){
-        $album = Album::find($id);
-        $table = Gallery::orderBy('galleryID','DESC')->where('albumID',$id)->get();
-        $count = Gallery::where('albumID',$id)->count();
+    public function gallery_page(Request $request){
+        $album = Album::find($request->id);
+        $table = Gallery::orderBy('galleryID','DESC')->where('albumID',$request->id)->get();
+        $count = Gallery::where('albumID',$request->id)->count();
         return view('gallery_page')->with(['table'=>$table,'album'=>$album,'count'=>$count]);
     }
 }

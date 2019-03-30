@@ -70,17 +70,58 @@ Home
         </div>
         <hr>
         @endif
-        <div class="row mt-3 mb-3">
-            @foreach($table as $row)
-            <div class="col-md-3">
-                <div class="gallery">
-                    <a href="{{action('MainController@gallery_page',['id'=>$row->albumID])}}">
-                        <img src="{{asset('public/uploads/album/'.$row->imageName)}}" alt="Northern Lights" width="600" height="400">
-                    </a>
-                    <div class="desc text-center">{{$row->title}}</div>
+
+            <div class="row mt-3 mb-3">
+                <div class="col-md-12">
+                    <div class="md-form mt-0">
+                        <input id="search" class="form-control" data-url="{{action('MainController@albumSearch')}}" name="search" type="search" placeholder="Search" aria-label="Search">
+                    </div>
                 </div>
             </div>
-            @endforeach
+        <div class="row mt-3 mb-3" id="album_lists">
+
         </div>
     </div>
+@endsection
+@section('script')
+    <script type="text/javascript">
+
+        $(function () {
+            contents("{{action('MainController@allAlbums')}}");
+            $('#search').keyup(function (e) {
+                e.preventDefault();
+                var search = $(this).val();
+                var url = $(this).data('url')+'?search='+search;
+
+                if (search.length>0){
+                    contents(url);
+                }
+                else {
+                    contents("{{action('MainController@allAlbums')}}");
+                }
+
+            });
+        });
+
+
+
+        function contents(url) {
+            $.get(url, function(result){
+                var show_data = '';
+                $.each(result, function( i, row ) {
+                    show_data += '<div class="col-md-3">\n' +
+                        '                <div class="gallery">\n' +
+                        '                    <a value="'+row.albumID+'" href="{{action('MainController@gallery_page')}}?id='+row.albumID+'">\n' +
+                        '                        <img value="'+row.albumID+'" src="public/uploads/album/'+row.imageName+'" alt="Northern Lights" width="600" height="400">\n' +
+                        '                    </a>\n' +
+                        '                    <div class="desc text-center" value="'+row.albumID+'">'+row.title+'</div>\n' +
+                        '                </div>\n' +
+                        '            </div>'
+                });
+
+                $('#album_lists').html(show_data);
+            });
+        }
+
+    </script>
 @endsection

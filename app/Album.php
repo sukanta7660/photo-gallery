@@ -19,4 +19,8 @@ class Album extends Model
     protected $table = 'albums';
     protected $primaryKey = 'albumID';
     protected $fillable = ['title', 'imageName', 'slug', 'userID'];
+
+    public function scopeSearch($query, $search){
+        return $query->where('title','like','%'.$search.'%');
+    }
 }
